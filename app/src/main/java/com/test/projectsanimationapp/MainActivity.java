@@ -2,36 +2,30 @@ package com.test.projectsanimationapp;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.projectsanimationapp.adapter.ProjectsAdapter;
-import com.test.projectsanimationapp.databinding.ActivityMainBinding;
 import com.test.projectsanimationapp.model.Project;
-import com.test.projectsanimationapp.model.State;
-import com.test.projectsanimationapp.util.ToolbarAnimationUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
     private ProjectsAdapter adapter;
-    private ToolbarAnimationUtil animationUtil;
+    private RecyclerView rvProjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
+        rvProjects = findViewById(R.id.rv_projects);
         adapter = new ProjectsAdapter();
         setUpRecyclerView();
-        animationUtil = new ToolbarAnimationUtil(this);
     }
 
     @Override
@@ -41,29 +35,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        binding.rvProjects.setLayoutManager(new LinearLayoutManager(this));
-        binding.rvProjects.setAdapter(adapter);
-        binding.rvProjects.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy <= 0) {
-                    animationUtil.resizeToMax(binding.toolbar);
-                } else {
-                    animationUtil.resizeToMin(binding.toolbar);
-                }
-            }
-
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if (animationUtil.getState() == State.REDUCED) {
-                        animationUtil.resizeToNormal(binding.toolbar);
-                    }
-                }
-            }
-        });
+        rvProjects.setLayoutManager(new LinearLayoutManager(this));
+        rvProjects.setAdapter(adapter);
     }
 
     //todo for test purposes
