@@ -7,10 +7,7 @@
         motion:constraintSetStart="@+id/expanded"
         motion:duration="1000"
         motion:motionInterpolator="linear">
-        <OnSwipe
-            motion:dragDirection="dragUp"
-            motion:touchAnchorId="@+id/background"
-            motion:touchAnchorSide="bottom" />
+
     </Transition>
 
     <ConstraintSet android:id="@+id/expanded">
