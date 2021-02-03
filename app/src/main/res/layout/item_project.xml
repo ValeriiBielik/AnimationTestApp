@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="project"
+            type="com.test.projectsanimationapp.model.Project" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@{project.icon}"
+            android:layout_margin="16dp"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:layout_toStartOf="@id/iv_project_details"
+            android:layout_toEndOf="@id/iv_icon"
+            android:text="@{project.name}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="Project name" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_toStartOf="@id/iv_project_details"
+            android:layout_toEndOf="@id/iv_icon"
+            android:text="@{project.date}"
+            tools:text="Jan 21, 2021" />
+
+        <ImageView
+            android:id="@+id/iv_project_details"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_arrow_forward"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
+</layout>
