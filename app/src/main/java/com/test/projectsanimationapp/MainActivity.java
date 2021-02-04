@@ -2,6 +2,7 @@ package com.test.projectsanimationapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.core.content.ContextCompat;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private ProjectsAdapter adapter;
     private RecyclerView rvProjects;
     private MotionLayout parentMotionLayout, motionLayout;
+    private boolean isReduceAnimCompleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +50,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public int scrollVerticallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
                 int scrollRange = super.scrollVerticallyBy(dx, recycler, state);
-                int overScroll = dx - scrollRange;
-                if (overScroll > 0) {
+                if (scrollRange > 0) {
                     parentMotionLayout.transitionToState(R.id.reduced);
                     motionLayout.transitionToState(R.id.reduced);
                 }
                 return scrollRange;
             }
+
         };
         rvProjects.setLayoutManager(linearLayoutManager);
         rvProjects.setAdapter(adapter);
+        rvProjects.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy < 0) {
+                    if (isReduceAnimCompleted) {
+                        isReduceAnimCompleted = false;
+                        motionLayout.transitionToState(R.id.normal);
+                        parentMotionLayout.transitionToState(R.id.normal);
+
+                    }
+                }
+            }
+        });
     }
 
     //todo for test purposes
@@ -83,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int i) {
                 if (i == R.id.reduced) {
-                    motionLayout.transitionToState(R.id.normal);
+                    isReduceAnimCompleted = true;
                 } else if (i == R.id.normal) {
                     motionLayout.setTransition(R.id.base_transition);
                     motionLayout.transitionToStart();
@@ -107,9 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int i) {
-                if (i == R.id.reduced) {
-                    motionLayout.transitionToState(R.id.normal);
-                } else if (i == R.id.normal) {
+                if (i == R.id.normal) {
                     motionLayout.setTransition(R.id.base_transition);
                     motionLayout.transitionToStart();
                 }
@@ -117,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v) {
-
             }
         });
     }
