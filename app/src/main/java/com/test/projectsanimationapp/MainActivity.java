@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvProjects;
     private MotionLayout parentMotionLayout, motionLayout;
     private boolean isReduceAnimCompleted;
+    private static int firstVisibleInListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         adapter.updateDataList(generateProjects());
+
+        firstVisibleInListView = ((LinearLayoutManager) rvProjects.getLayoutManager()).findFirstVisibleItemPosition();
     }
 
     private void setUpRecyclerView() {
@@ -62,14 +65,31 @@ public class MainActivity extends AppCompatActivity {
         rvProjects.setAdapter(adapter);
         rvProjects.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy < 0) {
-                    if (isReduceAnimCompleted) {
-                        isReduceAnimCompleted = false;
-                        motionLayout.transitionToState(R.id.normal);
-                        parentMotionLayout.transitionToState(R.id.normal);
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    int currentFirstVisible = ((LinearLayoutManager) rvProjects.getLayoutManager()).findFirstVisibleItemPosition();
 
+                    if (currentFirstVisible <= firstVisibleInListView) {
+                        if (isReduceAnimCompleted) {
+                            isReduceAnimCompleted = false;
+                            motionLayout.transitionToState(R.id.normal);
+                            parentMotionLayout.transitionToState(R.id.normal);
+
+                        }
+                    }
+                    firstVisibleInListView = currentFirstVisible;
+                } else if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
+                    int currentFirstVisible = ((LinearLayoutManager) rvProjects.getLayoutManager()).findFirstVisibleItemPosition();
+
+                    if (currentFirstVisible <= firstVisibleInListView) {
+
+                        if (isReduceAnimCompleted) {
+                            isReduceAnimCompleted = false;
+                            motionLayout.transitionToState(R.id.normal);
+                            parentMotionLayout.transitionToState(R.id.normal);
+
+                        }
                     }
                 }
             }
