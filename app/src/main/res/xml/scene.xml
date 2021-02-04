@@ -37,8 +37,7 @@
             android:id="@+id/motionLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height_min"
-            motion:layout_constraintTop_toTopOf="parent"
-         />
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@id/rv_projects"

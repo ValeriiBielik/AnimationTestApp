@@ -48,9 +48,15 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:alpha="1.0"
-            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintBottom_toTopOf="@id/guideline"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            motion:layout_constraintGuide_begin="@dimen/toolbar_height_max" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/reduced">
@@ -88,9 +94,15 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:alpha="0.0"
-            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintBottom_toTopOf="@id/guideline"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            motion:layout_constraintGuide_begin="@dimen/toolbar_height_min" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/normal">
@@ -101,8 +113,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:alpha="1.0"
-            android:translationY="8dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintBottom_toTopOf="@id/guideline"
             motion:layout_constraintStart_toStartOf="parent" />
         <Constraint
             android:id="@id/sub_title"
@@ -130,8 +141,14 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:alpha="0.0"
-            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintBottom_toTopOf="@id/guideline"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            motion:layout_constraintGuide_begin="@dimen/toolbar_height_normal" />
     </ConstraintSet>
 </MotionScene>

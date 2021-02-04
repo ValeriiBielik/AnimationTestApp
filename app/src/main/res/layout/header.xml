@@ -67,4 +67,11 @@
             tools:ignore="Autofill" />
     </RelativeLayout>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/toolbar_height_normal"/>
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

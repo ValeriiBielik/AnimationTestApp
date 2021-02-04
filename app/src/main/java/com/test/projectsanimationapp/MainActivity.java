@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                     isReduceAnimCompleted = true;
                 } else if (i == R.id.normal) {
                     motionLayout.setTransition(R.id.base_transition);
-                    motionLayout.transitionToStart();
                 }
             }
 
@@ -125,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
             public void onTransitionCompleted(MotionLayout motionLayout, int i) {
                 if (i == R.id.normal) {
                     motionLayout.setTransition(R.id.base_transition);
-                    motionLayout.transitionToStart();
                 }
             }
 
