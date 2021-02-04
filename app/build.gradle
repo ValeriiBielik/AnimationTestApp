@@ -29,6 +29,13 @@ android {
     buildFeatures {
         dataBinding true
     }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def flavor = variant.name
+            def versionName = variant.versionName
+            outputFileName = "AnimationTestApp_${flavor}_${versionName}.apk"
+        }
+    }
 }
 
 dependencies {
